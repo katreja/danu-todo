@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+    Dashboard
+{% endblock title %}
+
+
+
+{% block content %}
+    <h2><b>Heading</b></h2>
+
+
+    {% if object_list %}
+    <div class="mt-4">
+        
+        <h5>Your To-Do List:</h5>
+            
+        {% for obj in object_list %}
+        
+        <div>
+            <ul class="list-group">
+                <li class="list-group-item list-group-item-light"><a href="{% url 'todo-detail' obj.id %}">{{obj.title}}</a></li>
+            </ul>
+        </div>
+            
+        {% endfor %}
+            
+    </div>
+    {% else %}
+    <div class="row">
+        <div class="col">
+            <p>You don't have any products yet.</p>
+        </div>
+    </div>
+    {% endif %}
+{% endblock content %}
+    

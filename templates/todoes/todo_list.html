@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<div class="container-fluid">
+        <h3>All To-Do</h3>
+    <div class="row">
+        <div class="col-8">
+            <div class="text-right my-2">
+                <a href="{% url 'todo-create' %}">Create To-Do</a>
+            </div>
+            {% if object_list %}
+            <table class="table">
+                <thead class="thead-light">
+                    <tr>
+                        <th>Title</th>
+                        <th>Deadline</th>
+                        <th>Status</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                    {% for object in object_list  %}
+                        <tr>
+                            <td><a href="{% url 'todo-detail' object.id %}">{{ object.title}}</a></td>
+                            <td>{{ object.deadline }}</td>
+                            <!-- get_namaAttribut_display utk menampilkan data yang manusiawi -->
+                            <td>{{ object.get_status_display }}</td>
+                        </tr>
+                    {% endfor %}
+                        
+                </tbody>
+            </table>
+            {% endif %}
+                
+        </div>
+     </div>
+ </div>
+    
+        
+{% endblock content %}

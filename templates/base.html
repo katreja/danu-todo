@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Welcome{% endblock %}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+<body>
+    <div>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                  <a class="nav-link" href="{% url 'home' %}">Dashboard <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'todo-all' %}">All To-Do</a>
+                </li>
+              </ul>
+              
+              <div class="ml-2">
+                <ul class="list-inline">
+                    {% if user.is_authenticated %}
+                        <li class="list-inline-item"><a href="{% url 'profile' %}">Hello {{user.first_name}}</a><li>
+                        <li class="list-inline-item"><a href="{% url 'logout' %}">Logout</a></li>
+                    {% else %}
+                        <li class="list-inline-item"><a href="{% url 'login' %}">Login</a></li>
+                    {% endif %}
+
+                </ul>
+              </div>
+              
+            </div>
+          </nav>
+    </div>
+    <div class="container-fluid py-4">
+      {% if messages %}
+        <div class="row">
+            <div class="col-8">
+                
+                {% for msg in messages  %}
+                    <div class="alert {{msg.tags}}">{{msg}}</div>
+                {% endfor %}
+
+            </div>
+        </div>
+      {% endif %}
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>
